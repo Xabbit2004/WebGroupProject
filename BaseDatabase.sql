@@ -1,0 +1,24 @@
+Create DATABASE Library;
+USE Library;
+
+CREATE TABLE BOOKS(
+	ISBN varchar(17) NOT NULL,
+    TITLE TINYTEXT,
+    AUTHOR varchar(100),
+    PUBDATE DATE,
+    GENRE varchar(25),
+    AVAILABILITY BOOL,
+    PRIMARY KEY(ISBN)
+);
+
+CREATE TABLE RATINGS(
+	ISBN varchar(17) NOT NULL,
+    RATING FLOAT,
+    REVIEW TINYTEXT
+);
+
+CREATE TABLE TAGS(
+	ISBN varchar(17),
+    TAG varchar(25)
+);
+
