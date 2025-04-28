@@ -14,6 +14,13 @@
 	font-weight: bold;
 }
 
+.site-title a {
+	color: white;
+	text-decoration: none;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
 .navbar-links {
 	list-style: none;
 	display: flex;
