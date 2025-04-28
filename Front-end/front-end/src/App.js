@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./Homepage";
 import Navbar from "./components/Navbar";
 import Loginpage from "./pages/Loginpage";
 
@@ -7,6 +8,7 @@ function App() {
    <BrowserRouter>
    <Navbar />
    <Routes>
+    <Route path = "/" element={<Homepage />} />
     <Route path = "/Loginpage" element={<Loginpage />} />
     <Route path = "*" element = {<h1>404- Page Not Found</h1>} />
 
