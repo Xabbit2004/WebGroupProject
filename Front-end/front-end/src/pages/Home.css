@@ -1,0 +1,18 @@
+h1 {
+	color: black;
+	text-align: center;
+	justify-content: center;
+}
+
+.intro-blurb {
+	color: black;
+	text-align: center;
+	width: 45%;
+	margin: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
