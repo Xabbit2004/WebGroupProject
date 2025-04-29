@@ -7,7 +7,7 @@ CREATE TABLE BOOKS(
     AUTHOR varchar(100),
     PUBDATE DATE,
     GENRE varchar(25),
-    AVAILABILITY BOOLEAN,
+    STATUS varchar(50) DEFAULT 'Available',
     PRIMARY KEY(ISBN)
 );
 
