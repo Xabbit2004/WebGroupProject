@@ -22,8 +22,22 @@
         <input type="text" name="Genre"
         value="<?php if(isset($_POST['Genre'])) { echo $_POST['Genre']; } ?>">
 	</form>
-	
+
 	<?php
+//	Protection from user
+	if(!defined('searchbar')){
+    	session_start();
+        if (!isset($_SESSION['USER-EMAIL'])) {
+        // sends them back to the login page
+        header('Location: login.php');
+        exit();
+        }
+        else{
+        // sends them back to the home page
+            header('Location: home.php');
+            exit();
+    }
+    }
 // ------------- Connect to database --------------
     $servername = "localhost";
     $username = "root";
@@ -42,7 +56,8 @@
 
 // Gather Columns name for Table Header
     $columns = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA ='Library' AND 
-    																	 TABLE_NAME = 'BOOKS'"; 
+    																	 TABLE_NAME = 'BOOKS' AND 
+    																	 EXTRA NOT LIKE '%INVISIBLE' "; 
     $header = mysqli_query($conn,$columns);
 
 // ---------------- Search Button -----------------
@@ -150,6 +165,7 @@
 // database in a table format
 // ------------------------------------------------
 	function displayTable($result, $header) {
+		$counthead = 0;
 	       if ($result->num_rows > 0) {
 	              echo "<br>";
 	       //Use table to display the database table
@@ -157,16 +173,25 @@
 	       // table heading
 	              echo "<thead><tr>";
 	              while($row = mysqli_fetch_assoc($header)){
-	                     foreach($row as $value)
+	                     foreach($row as $value){
 	                     echo "<th>" . $value . "</th>";
+	                 }
+	                 $counthead++;
+	                 if($counthead == 6)
+	                 	break;
 	              }
 	              echo "<tr></thead>";
 
 	       // table rows
+	     		
 	              while ($row = mysqli_fetch_assoc($result)) { 
-	                     echo "<tbody><tr>";
-	                     foreach ($row as $value) { // get the value for each row
+	                    echo "<tbody><tr>";
+	                    $counthead=0;
+	                    foreach ($row as $value) { // get the value for each row
 	                            echo "<td>" . $value . "</td>"; 
+             	                 $counthead++;
+	                 		if($counthead == 6)
+	                 		break;
 	                     }
 	                     echo "</tr></tbody>";
 	              }

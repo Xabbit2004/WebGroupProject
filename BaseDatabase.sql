@@ -8,7 +8,9 @@ CREATE TABLE BOOKS(
     PUBDATE DATE,
     GENRE varchar(25),
     STATUS varchar(50) DEFAULT 'Available',
-    PRIMARY KEY(ISBN)
+    EMAIL varchar(50),
+    CHECKDATE DATE,
+    id INT AUTO_INCREMENT PRIMARY KEY 
 );
 
 CREATE TABLE RATINGS(
@@ -21,6 +23,14 @@ CREATE TABLE TAGS(
 	ISBN varchar(17),
     TAG varchar(25)
 );
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    hashed_password VARCHAR(200) NOT NULL
+);
+
 
 INSERT INTO books (ISBN, TITLE, AUTHOR, PUBDATE, GENRE) VALUES
 ('978-0-394-52340-1', 'The Clockmaker’s Secret', 'Julian Everett', '2019-03-22', 'Mystery'),
