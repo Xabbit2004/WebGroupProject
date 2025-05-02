@@ -47,6 +47,7 @@ function Home() {
             <tr key={index}>
               <td>{item.TITLE}</td>
               <td>{item.STATUS}</td>
+              <td><button>Checkout</button></td>
             </tr>
           ))}
         </tbody>
