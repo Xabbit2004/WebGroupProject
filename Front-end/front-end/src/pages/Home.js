@@ -33,6 +33,21 @@ function Home() {
       </p>
       <br></br>
       <br></br>
+      <form id="filterForm">
+        <input type="text" id="titleFilter" placeholder="Title">
+        <input type="text" id="authorFilter" placeholder="Author">
+        <input type="text" id="isbnFilter" placeholder="ISBN">
+        <select id="genreFilter">
+           <option value="">All Genres</option>
+           <option value="Fiction">Fiction</option>
+           <option value="Non-fiction">Non-fiction</option>
+           //Add more of these as needed
+        </select>
+        <input type="date" id="pubDateFrom" placeholder="Published After">
+        <input type="date" id="pubDateTo" placeholder="Published Before">
+        <button type="submit">Filter</button>
+      </form>
+      <br></br>
       <br></br>
       <table className = "bookTable">
         <thead>
