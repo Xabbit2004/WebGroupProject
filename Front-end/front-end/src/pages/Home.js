@@ -40,6 +40,20 @@ function Home() {
           <br></br>
           <br></br>
           <br></br>
+          <form id="filterForm" className="filters">
+            <input type="text" id="titleFilter" placeholder="Title"></input>
+            <input type="text" id="authorFilter" placeholder="Author"></input>
+            <input type="text" id="isbnFilter" placeholder="ISBN"></input>
+            <select id="genreFilter">
+              <option value="">All Genres</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Non-fiction">Non-fiction</option>
+            </select>
+            <input type="date" id="pubDateFrom" placeholder="Published After"></input>
+            <input type="date" id="pubDateTo" placeholder="Published Before"></input>
+            <button type="submit">Filter</button>
+          </form>
+
           <table className = "bookTable">
             <thead>
               <tr>
