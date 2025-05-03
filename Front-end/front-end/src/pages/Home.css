@@ -59,6 +59,16 @@ h1 {
   margin: auto;
 }
 
+/* Form Styling */
+.filters {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  flex-grow: 1;
+  justify-content: flex-start;
+  width: 15%;
+  margin: auto;
+}
+
 /* Table Styling */
 table, th, td {
   border: 1px solid black;
