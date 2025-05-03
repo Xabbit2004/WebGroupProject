@@ -2,57 +2,52 @@ import React, {useState} from "react";
 import Stars from "../components/Stars";
 import "./Reviewpage.css";
 
-export default function Reviewpage() {
-	const [rating, setRating] = useState(0);
-	const [review, setReview] = useState("");
-	const [submit, setSubmit] = useState(false);
+const ReviewPage = () => {
+  const [reviewText, setReviewText] = useState('');
+  const [rating, setRating] = useState(null);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		if(rating === 0 || review.trim() === "") {
-			alert("Please provide a star rating and a review.");
-			return;
-		}
-		setSubmit(true);
-	};
- 
- 	return(
- 		<div className = "review-container">
- 		<h2>Leave a Review</h2>
- 		{!submit ? (
- 			<form onSubmit = {handleSubmit}>
- 			<div className = "form-group">
- 			<label> Rate Book: </label>
- 			 <div className = "star-row">
- 			 <Stars rating={rating} onRate={setRating} />
- 			 </div>
- 			</div>
- 			<div className = "form-group">
- 			 <label> Your Review </label>
- 			 <textarea
- 			 	value = {review}
- 			 	onChange = {(e) => setReview(e.target.value)}
- 			 	rows="4"
- 			 	placeholder = "Write Something..."
- 			 	required
- 			 />
- 			</div>
- 			<button type = "submit">Submit Review</button>
- 			</form>
- 			) : (
- 			<div>
- 				<h3>Thank you for your review!</h3>
- 				<p>
- 				 <strong>Rating:</strong>{" "}
- 				 <span className="star-row">
- 				 <Stars rating={rating} onRate= {() => {}} />
- 				 </span>
- 				</p>
- 				<p>
- 				 <strong>Review:</strong> {review}
- 				</p>
- 			</div>
- 			)}
- 		</div>
- 	);
-}
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    // Handle the form submission logic (e.g., send review data to a backend or display confirmation)
+    alert(`Review: ${reviewText}, Rating: ${rating}`);
+  };
+
+  return (
+    <div className="review-container">
+      <h2 className="review-heading">Submit Your Review</h2>
+      <form className="review-form" onSubmit={handleReviewSubmit}>
+        <div className="form-group">
+          <label htmlFor="review-text">Review:</label>
+          <textarea
+            id="review-text"
+            rows="4"
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+            placeholder="Enter your review here"
+          ></textarea>
+        </div>
+        <div className="form-group star-row">
+          <label>Rating:</label>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <React.Fragment key={star}>
+              <input
+                type="radio"
+                name="rating"
+                value={star}
+                onChange={() => setRating(star)}
+                checked={rating === star}
+              />
+              {star}
+            </React.Fragment>
+          ))}
+        </div>
+        <button type="submit" className="submit-btn">Submit</button>
+      </form>
+      <div className="thank-you-message">
+        <h3>Thank you for your review!</h3>
+      </div>
+    </div>
+  );
+};
+
+export default ReviewPage;
