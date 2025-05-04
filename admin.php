@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <link rel="stylesheet" type="text/css" href="styling.css">
 </head>
 <body>
-    <form method="post">
-        <button name="add_book_form"> Add a book</button>
-        <button name="delete_book_form"> Delete a book</button>
-        <button name="update_book_form"> Update a book record</button>
-    </form>
     <?php
 //  Protection from users
     if(!defined('adminfeat')){
@@ -39,29 +34,29 @@
     {
         die("Connection failed: " . $conn->connect_error);
     }
-// ------------------------------------------------
+    ?>
+<!-- ------------------------------------------------ -->
+
+    <!-- Displays the form for Adding book -->
+    <div class="blocks left">       
+        <h2> Add book to the database </h2>
+        <form method="post">
+            <label> Title: </label>
+            <input type="text" name="title" required> <br>
+            <label> Author: </label>
+            <input type="text" name="author" required> <br>
+            <label> ISBN #: </label>
+            <input type="text" name="isbn" placeholder="xxx-x-xxx-xxxxx-x" required> <br>
+            <label> Publication Date: </label>
+            <input type="date" name="date" required> <br>
+            <label> Genre: </label>
+            <input type="text" name="genre" required> <br>
+            <button type="submit" name="add_book"> Confirm Add </button>
+        </form>
+    </div>
 
 
-    if (isset($_POST['add_book_form'])) {
-    //Displays the form for Adding book
-        echo "<h2> Add book to the database </h2>";
-        echo '<form method="post">';
-        echo "<label> Title: </label>";
-        echo '<input type="text" name="title" required> <br>';
-        echo "<label> Author: </label>";
-        echo '<input type="text" name="author" required> <br>';
-        echo "<label> ISBN #: </label>";
-        echo '<input type="text" name="isbn" placeholder="xxx-x-xxx-xxxxx-x" required> <br>';
-        echo "<label> Publication Date: </label>";
-        echo '<input type="date" name="date" required> <br>';
-        echo "<label> Genre: </label>";
-        echo '<input type="text" name="genre" required> <br>';
-
-        echo '<button type="submit" name="add_book"> Confirm Add </button>';
-        echo '</form>';
-    }
-
-
+<?php
     if (isset($_POST['add_book'])) {
         $ISBN = htmlspecialchars($_POST['isbn']);
         $TITLE = htmlspecialchars($_POST['title']);
@@ -75,19 +70,20 @@
               if (mysqli_query($conn, $sql)) {echo "New record created successfully";} 
               else { echo "Error: " . $sql . "<br>" . mysqli_error($conn); }
     }
+    ?>
+<!-- ------------------------------------------------ -->
 
-    if (isset($_POST['delete_book_form'])) {
-    //Displays the form for Delete book
-        echo "<h2> Delete book from the database </h2>";
-        echo '<form method="post">';
-        echo "<label> ISBN #: </label>";
-        echo '<input type="text" name="isbn" placeholder="xxx-x-xxx-xxxxx-x" required> <br>';
+    <!-- Displays the form for Delete book -->
+    <div class="blocks left">     
+        <h2> Delete book from the database </h2>
+        <form method="post">
+            <label> ISBN #: </label>
+            <input type="text" name="isbn" placeholder="xxx-x-xxx-xxxxx-x" required> <br>
+            <button type="submit" name="delete_book"> Delete </button>
+        </form>
+    </div>
 
-        echo '<button type="submit" name="delete_book"> Delete </button>';
-        echo '</form>';
-    }
-
-
+<?php
     if (isset($_POST['delete_book'])) {
     // Gather input
         $ISBN = htmlspecialchars($_POST['isbn']);
@@ -102,27 +98,35 @@
               } 
               else { echo "Book with ISBN " . $ISBN . " not found"; }
     }
-    if (isset($_POST['update_book_form'])) {
-    //Displays the form for Delete book
-        echo "<h2> Update Book Availability </h2>";
-        echo '<form method="post">';
-        echo "<label> Book(Title or ISBN): </label>";
-        echo '<input type="text" name="search" required> <br>';
-        echo "<label> User Email: </label>";
-        echo '<input type="text" name="user" required> <br>';
-        echo '<button  name="inButton"> Check IN </button>';
-        echo '<button  name="outButton"> Check OUT </button>';
-        echo '</form>';
-    }
+    ?>
+<!-- ------------------------------------------------ -->
 
+    <!-- Displays the form for Delete book -->
+    <div class="blocks left">     
+        <h2> Update Book Availability </h2>
+        <form method="post">
+            <label> Book(Title or ISBN): </label>
+            <input type="text" name="search" required> <br>
+            <label> User Email: </label>
+            <input type="text" name="user" required> <br>
+            <button  name="inButton"> Check IN </button>
+            <button  name="outButton"> Check OUT </button>
+        </form>
+    </div>
 
-    if (isset($_POST['inButton'])) {
+<?php
+    if (isset($_POST['outButton'])) {
     // Gather input
         $Search = htmlspecialchars($_POST['search']);
         $Email = htmlspecialchars($_POST['user']);
+
+        //Check out Date
         $CurDate = date("Y-m-d");
-        echo "$CurDate";
-    //Check if Student exist
+        //Date of return
+        $ExpDate = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")+30, date("Y")));
+        echo $ExpDate;
+
+    //Check if is book is available
         $check = "SELECT id FROM BOOKS WHERE ISBN = '$Search' OR TITLE = '$Search' AND
                                                     STATUS = 'Available' 
                                                     LIMIT 1";
@@ -131,26 +135,36 @@
             $pos = mysqli_fetch_assoc($result);
             $position1 = $pos["id"];
     //Delete the student
-             $sql = "UPDATE BOOKS SET EMAIL = '$Email', CHECKDATE = '$CurDate', STATUS = 'Unavailable' 
+             $sql = "UPDATE BOOKS SET EMAIL = '$Email', CHECKDATE = '$CurDate', EXPDATE = '$ExpDate', STATUS = 'Unavailable' 
                     WHERE id = '$position1' "; 
              mysqli_query($conn, $sql);
-             echo "Book with ISBN deleted successfully";
+             $alert1 = $Search . " has been successfully checked out. Return by: " . $ExpDate;
+             echo "<script type='text/javascript'>alert('{$alert1}');</script>";
               } 
-              else { echo "Book with ISBN not found"; }
+        else { 
+            echo "<script type='text/javascript'>alert('Book either not found or its already unavailable');</script>"; 
+        }
     }
-    if (isset($_POST['outButton'])) {
+    if (isset($_POST['inButton'])) {
     // Gather input
-        $ISBN = htmlspecialchars($_POST['isbn']);
-    //Check if Student exist
-        $check = "SELECT * FROM BOOKS WHERE ISBN = '$ISBN'";
+        $Search = htmlspecialchars($_POST['search']);
+        $Email = htmlspecialchars($_POST['user']);
+    //Check if is book is taken
+        $check = "SELECT id FROM BOOKS WHERE ISBN = '$Search' OR TITLE = '$Search' AND
+                                                    EMAIL = '$Email' 
+                                                    LIMIT 1";
         $result = mysqli_query($conn, $check);
         if ($result->num_rows > 0) {
+            $pos = mysqli_fetch_assoc($result);
+            $position1 = $pos["id"];
     //Delete the student
-             $sql = "DELETE FROM BOOKS WHERE ISBN = '$ISBN'"; 
+             $sql = "UPDATE BOOKS SET EMAIL = NULL, CHECKDATE = NULL, EXPDATE = NULL, STATUS = 'Available' 
+                    WHERE id = '$position1' "; 
              mysqli_query($conn, $sql);
-             echo "Book with ISBN " . $ISBN . " deleted successfully";
+             $alert1 = $Search . " has been successfully checked in";
+             echo "<script type='text/javascript'>alert('{$alert1}');</script>";
               } 
-              else { echo "Book with ISBN " . $ISBN . " not found"; }
+        else { echo "<script type='text/javascript'>alert('Book either not found or its already available');</script>"; }
     }
 ?>
 </body>

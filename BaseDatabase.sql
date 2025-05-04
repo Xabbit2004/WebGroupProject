@@ -10,6 +10,7 @@ CREATE TABLE BOOKS(
     STATUS varchar(50) DEFAULT 'Available',
     EMAIL varchar(50),
     CHECKDATE DATE,
+    EXPDATE DATE,
     id INT AUTO_INCREMENT PRIMARY KEY 
 );
 
