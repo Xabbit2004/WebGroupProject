@@ -4,9 +4,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Search Book</title>
+	    <link rel="stylesheet" type="text/css" href="styling.css">
+
 </head>
 <body>
 	<!-- Have a search bar -->
+	<div class="blocks">
 	<form method="post">
 		<input type="text" name="searchText" 
 		value="<?php if(isset($_POST['searchText'])) { echo $_POST['searchText']; } ?>">
@@ -22,8 +25,23 @@
         <input type="text" name="Genre"
         value="<?php if(isset($_POST['Genre'])) { echo $_POST['Genre']; } ?>">
 	</form>
-	
+	</div>
+
 	<?php
+//	Protection from user
+	if(!defined('searchbar')){
+    	session_start();
+        if (!isset($_SESSION['USER-EMAIL'])) {
+        // sends them back to the login page
+        header('Location: login.php');
+        exit();
+        }
+        else{
+        // sends them back to the home page
+            header('Location: home.php');
+            exit();
+    }
+    }
 // ------------- Connect to database --------------
     $servername = "localhost";
     $username = "root";
@@ -52,87 +70,80 @@
 //------ IF given A Tittle, ISBN, or Author
     	if(!empty($_POST['searchText'])){
     	$search = htmlspecialchars($_POST['searchText']);
-
    	//-- Between Given dates
-    	if(!empty($_POST['fromDate']) && !empty($_POST['toDate'])){
-    		$fromDate = $_POST['fromDate'];
-    		$toDate = $_POST['toDate'];
-    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
-    														ISBN = '$search' OR 
-    														AUTHOR LIKE '%$search%' AND 
-    														PUBDATE BETWEEN '$fromDate' AND '$toDate'";
-
-    	}
-
+	    	if(!empty($_POST['fromDate']) && !empty($_POST['toDate'])){
+	    		$fromDate = $_POST['fromDate'];
+	    		$toDate = $_POST['toDate'];
+	    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
+	    														ISBN = '$search' OR 
+	    														AUTHOR LIKE '%$search%' AND 
+	    														PUBDATE BETWEEN '$fromDate' AND '$toDate'";
+	    	}
     //-- From Given date and below
-    	elseif (!empty($_POST['toDate'])) {
-    		$toDate = $_POST['toDate'];
-    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
-    														ISBN = '$search' OR 
-    														AUTHOR LIKE '%$search%' AND
-    														PUBDATE <= '$toDate' ";
-    	}
-
+	    	elseif (!empty($_POST['toDate'])) {
+	    		$toDate = $_POST['toDate'];
+	    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
+	    														ISBN = '$search' OR 
+	    														AUTHOR LIKE '%$search%' AND
+	    														PUBDATE <= '$toDate' ";
+	    	}
 	//-- From Given date and above
-    	elseif (!empty($_POST['fromDate'])) {
-    		$fromDate = $_POST['fromDate'];
-    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
-    														ISBN = '$search' OR 
-    														AUTHOR LIKE '%$search%' AND
-    														PUBDATE >= '$fromDate'";
-    	}
+	    	elseif (!empty($_POST['fromDate'])) {
+	    		$fromDate = $_POST['fromDate'];
+	    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
+	    														ISBN = '$search' OR 
+	    														AUTHOR LIKE '%$search%' AND
+	    														PUBDATE >= '$fromDate'";
+	    	}
     //-- From Given genre
-    	elseif (isset($_POST['Genre'])) {
-    		$genre = htmlspecialchars($_POST['Genre']);
-    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
-    														ISBN = '$search' OR 
-    														AUTHOR LIKE '%$search%' AND
-    														GENRE = '$genre' ";
-    	}
-
+	    	elseif (isset($_POST['Genre'])) {
+	    		$genre = htmlspecialchars($_POST['Genre']);
+	    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
+	    														ISBN = '$search' OR 
+	    														AUTHOR LIKE '%$search%' AND
+	    														GENRE = '$genre' ";
+	    	}
     //-- Wihtout specific Filters
-    	else
-    	{
-    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
-    														ISBN = '$search' OR 
-    														AUTHOR LIKE '%$search%'";
-    	}}
+	    	else
+	    	{
+	    		$Filter = "SELECT * FROM BOOKS WHERE TITLE LIKE '%$search%' OR 
+	    														ISBN = '$search' OR 
+	    														AUTHOR LIKE '%$search%'";
+	    	}
+	//-- Gather Database results
+		$result = mysqli_query($conn, $Filter);
+    	} else{
 //------ If there is no text input
-     	else
-    	{
-    //-- Between Given dates
-    	if(!empty($_POST['fromDate']) && !empty($_POST['toDate'])){
-    		$fromDate = $_POST['fromDate'];
-    		$toDate = $_POST['toDate'];
-    		$Filter = "SELECT * FROM BOOKS WHERE PUBDATE BETWEEN '$fromDate' AND '$toDate'";
-
-    	}
-    //-- From Given date and below
-    	elseif (!empty($_POST['toDate'])) {
-    		$toDate = $_POST['toDate'];
-    		$Filter = "SELECT * FROM BOOKS WHERE PUBDATE <= '$toDate' ";
-    	}
-	//-- From Given date and above
-    	elseif (!empty($_POST['fromDate'])) {
-    		$fromDate = $_POST['fromDate'];
-    		$Filter = "SELECT * FROM BOOKS WHERE PUBDATE >= '$fromDate'";
-    	}
-   	//-- From Given genre
-    	elseif (!empty($_POST['Genre'])) {
-    		$genre = htmlspecialchars($_POST['Genre']);
-    		$Filter = "SELECT * FROM BOOKS WHERE GENRE = '$genre' ";
-    	}
-
-    //-- Default
-    	else
-    	{
-    		$all = "SELECT * FROM BOOKS";
-    		$result = mysqli_query($conn, $all);
-    	}
-	}
-//-- Gather Database results
-	$result = mysqli_query($conn, $Filter);
-    } 
+	    //-- Between Given dates
+	    	if(!empty($_POST['fromDate']) && !empty($_POST['toDate'])){
+	    		$fromDate = $_POST['fromDate'];
+	    		$toDate = $_POST['toDate'];
+	    		$Filter = "SELECT * FROM BOOKS WHERE PUBDATE BETWEEN '$fromDate' AND '$toDate'";
+	    	}
+	    //-- From Given date and below
+	    	elseif (!empty($_POST['toDate'])) {
+	    		$toDate = $_POST['toDate'];
+	    		$Filter = "SELECT * FROM BOOKS WHERE PUBDATE <= '$toDate' ";
+	    	}
+		//-- From Given date and above
+	    	elseif (!empty($_POST['fromDate'])) {
+	    		$fromDate = $_POST['fromDate'];
+	    		$Filter = "SELECT * FROM BOOKS WHERE PUBDATE >= '$fromDate'";
+	    	}
+	   	//-- From Given genre
+	    	elseif (!empty($_POST['Genre'])) {
+	    		$genre = htmlspecialchars($_POST['Genre']);
+	    		$Filter = "SELECT * FROM BOOKS WHERE GENRE = '$genre' ";
+	    	}
+	    //-- Default
+	    	else
+	    	{
+	    		$Filter = "SELECT * FROM BOOKS";
+	    	}
+    	//-- Gather Database results
+		$result = mysqli_query($conn, $Filter);
+    	} 
+    }
 //-- Default
     else
     {
@@ -150,27 +161,37 @@
 // database in a table format
 // ------------------------------------------------
 	function displayTable($result, $header) {
+		$counthead = 0;
 	       if ($result->num_rows > 0) {
 	              echo "<br>";
 	       //Use table to display the database table
-	              echo '<div class="center"><table>'; // table start
+	              echo '<table>'; // table start
 	       // table heading
 	              echo "<thead><tr>";
 	              while($row = mysqli_fetch_assoc($header)){
-	                     foreach($row as $value)
+	                     foreach($row as $value){
 	                     echo "<th>" . $value . "</th>";
+	                 }
+	                 $counthead++;
+	                 if($counthead == 9)
+	                 	break;
 	              }
 	              echo "<tr></thead>";
 
 	       // table rows
+	     		
 	              while ($row = mysqli_fetch_assoc($result)) { 
-	                     echo "<tbody><tr>";
-	                     foreach ($row as $value) { // get the value for each row
+	                    echo "<tbody><tr>";
+	                    $counthead=0;
+	                    foreach ($row as $value) { // get the value for each row
 	                            echo "<td>" . $value . "</td>"; 
+             	                 $counthead++;
+	                 		if($counthead == 9)
+	                 		break;
 	                     }
 	                     echo "</tr></tbody>";
 	              }
-	              echo "</table></div>"; // table end
+	              echo "</table>"; // table end
 	       }
 	       else { echo "<p>No records found.</p>";}
 	}

@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Log in </title>
+    <link rel="stylesheet" type="text/css" href="styling.css">
+</head>
+<body>
+
+
 <?php
 session_start();
 
@@ -5,12 +16,12 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "usersDB";
+$database = "Library";
 $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+echo "<div class='overlay'>";
 echo "<h1>LOG IN</h1>";
 
 // Display the login Form: Asks for Email and Password.
@@ -66,4 +77,7 @@ if (isset($_POST['login'])) {
 
 // placed at the bottom to not interfer with ouputted msg's, takes them to register page
 echo "<a href='register.php'> Don't have an account? Register</a>";
+echo "</div>";
 ?>
+</body>
+</html>
