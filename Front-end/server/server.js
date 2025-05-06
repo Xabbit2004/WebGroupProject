@@ -54,6 +54,24 @@ app.post('/hold/:id', (req, res) => {
   });
 });
 
+//Submit a review
+app.post('/submit-review', (req, res) => {
+  const { rating, review} = req.body;
+
+  if(!rating || !review.trim()){
+    return res.status(400).send("Invalid input: rating and reviews are required.");
+  }
+
+  const sql = "INSERT INTO Reviews (rating, review) VALUES (?, ?)";
+  db.query(sql, [rating, review], (err,result) => {
+    if (err) {
+      console.error("Insert Failed: ", err);
+      return res.status(500).send("Database error while submitting review");
+    }
+    res.status(200).send("Review submitted successfully")
+  })
+  })
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
