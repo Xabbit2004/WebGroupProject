@@ -25,10 +25,12 @@ body {
   background-position: center;
   height: 50vh;
   width: 100%;
-  position: absolute;
+
   top: 0;
   left: 0;
   z-index: -1;
+  filter: none !important;
+  background-color: transparent !important;
 }
 
 /* Main Content */
@@ -77,3 +79,9 @@ table, th, td {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Make Dark mode not affect background image */
+.dark-mode .background-image {
+  filter: none !important;
+}
+
