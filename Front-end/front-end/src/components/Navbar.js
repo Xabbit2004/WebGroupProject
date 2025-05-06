@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import {Provider} from "./ui/provider";
 import React, { useState } from 'react';
+import DarkModeButton from "./DarkModeButton";
 import "./style.css";
 
 export default function Navbar() {
@@ -10,6 +12,7 @@ export default function Navbar() {
 		alert(`Searching for: ${query}`);
 	};
 	return (
+		<Provider>
 		<nav className = "navbar">
 		<div className = "site-title">
 			<Link to ="/">Library Babel</Link>
@@ -28,11 +31,18 @@ export default function Navbar() {
 
 
 		<ul className = "navbar-links">
-			<li>
+			<li className = "nav-item">
+				<Link to = "/Reviewpage">Review Page </Link>
+			</li>
+			<li className = "nav-item">
 				<Link to = "/Loginpage">Login</Link>
 			</li>
+			<li className = "nav-item">
+				<DarkModeButton />
+			</li>
+
 		</ul>
 		</nav>
-
+		</Provider>
 	);
 }
