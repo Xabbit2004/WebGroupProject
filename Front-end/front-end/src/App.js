@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Loginpage from "./pages/Loginpage";
 import Checkout from "./pages/Checkout";
+import Reviewpage from "./pages/Reviewpage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
    <Routes>
     <Route path = "/" element={<Home />} />
     <Route path = "/Checkout" element={<Checkout />} />
+    <Route path = "/Reviewpage" element = {<Reviewpage />} />
     <Route path = "/Loginpage" element={<Loginpage />} />
     <Route path = "*" element = {<h1>404- Page Not Found</h1>} />
 
