@@ -1,8 +1,58 @@
+:root{
+    --base-gradient:linear-gradient(to bottom, #e2e2e2, #c9d6ff);
+    --base-block: #fff;
+    --base-accent: #eee;
+    --base-text: #333;
+    --blues:#7494ec;
+    --blues2:#6884d3;
+    --base-button: #7494ec;
+}
+.darkmode{
+    --base-gradient: linear-gradient(to bottom, #0a0a0a, #404863); 
+    --base-block: #272727;
+    --base-accent: #111;
+    --base-text: #fff;
+    --blues:#27356e;
+    --blues2:#1a234a;
+    --base-button: #344380;
+}
+
+#theme-switch{
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: var(--base-block);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+}
+
+#theme-switch svg{
+    fill: var(--base-text);
+}
+#theme-switch svg:last-child{
+    display: none;
+}
+.darkmode #theme-switch svg:first-child{
+    display: none;
+}
+
+.darkmode #theme-switch svg:last-child{
+    display: block;
+}
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    color: var(--base-text);
 }
 
 body {
@@ -10,8 +60,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-    color: #333;
+    background: var(--base-gradient);
+    color: var(--base-text);
 }
 
 .form-container{
@@ -23,7 +73,7 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 30px;
-    background: #fff;
+    background: var(--base-block);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
@@ -33,29 +83,37 @@ h2{
     font-size: 34px;
     text-align: center;
     margin-bottom: 20px;
+    color: var(--base-text);
+}
+
+p{
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--base-text);
 }
 
 input, select {
     width: 100%;
     padding: 12px;
-    background: #eee;
+    background: var(--base-accent);
     border-radius: 6px;
     border: none;
     outline: none;
     font-size: 16px;
-    color: #333;
+    color: var(--base-text);
     margin-bottom: 20px;
 }
 
 button {
     width: 100%;
     padding: 12px;
-    background: #7494ec;
+    background: var(--blues);
     border-radius: 6px;
     border: none;
     cursor: pointer;
     font-size: 16px;
-    color: #fff;
+    color: var(--base-text);
     font-weight: 500;
     margin-bottom: 20px;
     transition: 0.5s;
@@ -65,34 +123,19 @@ button:hover{
     background: #6884d3;
 }
 
-p{
-    font-size: 15px;
-    text-align: center;
-    margin-bottom: 20px;
-
-    a{
-        color: #7494ec;
-        text-decoration: none;
-    }
-
-    a:hover{
-        text-decoration: underline;
-    }
-}
-
-
-
 .header {
-	background-color: #F1F1F1;
-	text-align: center;
-	padding: 20px;
+    background-color: var(--base-block);
+    text-align: center;
+    padding: 20px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     margin-bottom: 20px;
 
-	h1{
-		font-size: 50px;
-	}
+    h1{
+        font-size: 50px;
+        color: var(--base-text);
+
+    }
 
 }
 
@@ -100,34 +143,50 @@ p{
 /* The navbar container */
 .topnav {
   overflow: hidden;
-  background-color: #7494ec;
+  background-color: var(--blues);
 
-	/* Navbar links */
-	#still {
-	  float: right;
-	  display: block;
-	  text-align: center;
-	  padding: 14px 16px;
-	  text-decoration: none;
-	  color: black;
-	  background-color: #6884d3;
-	  font-weight: bolder;
-	}
+    /* Navbar links */
+    #still {
+      float: right;
+      display: block;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--base-text);
+      background-color: var(--blues2);
+      font-weight: bolder;
+    }
 
-	#motion {
-	  float: right;
-	  display: block;
-	  text-align: center;
-	  color: black;
-	  padding: 14px 16px;
-	  text-decoration: none;
-	}
-	
-	/* Links - change color on hover */
-	#motion:hover {
-	  background-color: #6884d3;
-	  color: black;
-}}
+    #motionRight{
+      float: right;
+      display: block;
+      text-align: center;
+      padding: 14px 16px;
+      color: var(--base-text);
+      text-decoration: none;
+    }
+    
+    /* Links - change color on hover */
+    #motionRight:hover {
+      background-color: var(--blues2);
+      color: var(--base-text);
+    }
+
+    #motionLeft{
+        float: left;
+        display: block;
+        text-align: center;
+        color: var(--base-text);
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      
+      /* Links - change color on hover */
+      #motionLeft:hover {
+        background-color: var(--blues2);
+        color: var(--base-text);
+      }
+}
 
 .wrapper {
     width: min(100vw, 100% - 3rem);
@@ -140,74 +199,77 @@ p{
     border-radius: 10px;
 }
 
+
+/* This is for the SEARCH BAR */
 .search-form-box{
     width: 100%;
     padding: 30px;
-    background: #fff;
+    background: var(--base-block);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     
-    input{        
-        width: 300px;
-        padding: 12px;
-        background: #eee;
-        border-radius: 6px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 20px;
-    } 
-    select {
-        width: 120px;
-        padding: 12px;
-        background: #eee;
-        border-radius: 6px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-    
-    button {
-        width: 120px;
-        padding: 12px;
-        background: #7494ec;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        color: #fff;
-        font-weight: 500;
-        margin-bottom: 20px;
-        transition: 0.5s;
-    }
-    
-    button:hover{
-        background: #6884d3;
-    }
+}
+
+.search-form-box input{        
+    width: 300px;
+    padding: 12px;
+    background: var(--base-accent);
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--base-text);
+    margin-bottom: 20px;
+} 
+.search-form-box select {
+    width: 120px;
+    padding: 12px;
+    background: var(--base-accent);
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--base-text);
+    margin-bottom: 20px;
+}
+
+.search-form-box button {
+    width: 120px;
+    padding: 12px;
+    background: var(--blues);
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--base-text);
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: 0.5s;
+}
+
+.search-form-box button:hover{
+    background: #6884d3;
 }
 
 table{
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
+    background: var(--base-block);
 }
 
 thead tr{
-    background: #7494ec;
+    background: var(--blues);
     text-align: left;
     font-weight: bold;
 }
 
 tr{
-    border-bottom: 1.5px solid #f2f2f2;
+    border-bottom: 1.5px solid var(--base-accent);
 }
 
 tbody tr:hover{
-    background: #f4f4f4;
+    background: var(--base-accent);
 }
 
 th, td{
