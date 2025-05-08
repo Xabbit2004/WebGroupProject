@@ -2,6 +2,8 @@
 
 This is a library management website, that connects to a MySQL database using a PHP framework.
 
+To start up the website, you must run the MySQL and Apache servers. You then navigate to the localhost/WebGroupProject to get to the login page.
+
 In it you can register as a User or an Admin, which will decide which version of the website you will see, admin for admin, and user for user.
 After this you will login under that account and be taken to your respective homepage.
 
