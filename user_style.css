@@ -18,30 +18,29 @@ body {
     margin: 0 15px;
 }
 
-.form-box{
-    width: 100%;
-    max-width: 400px;
+.search-form-box{
+    width: 90vw;
     padding: 30px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: none;
+
+
 }
 
-.form-box.active{
-    display: block;
-}
-
-
-
-h2{
-    font-size: 34px;
-    text-align: center;
+input{        
+    width: 300px;
+    padding: 12px;
+    background: #eee;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
     margin-bottom: 20px;
-}
-
-input, select {
-    width: 100%;
+} 
+select {
+    width: 120px;
     padding: 12px;
     background: #eee;
     border-radius: 6px;
@@ -53,7 +52,7 @@ input, select {
 }
 
 button {
-    width: 100%;
+    width: 120px;
     padding: 12px;
     background: #7494ec;
     border-radius: 6px;
@@ -70,28 +69,9 @@ button:hover{
     background: #6884d3;
 }
 
-p{
-    font-size: 15px;
-    text-align: center;
-    margin-bottom: 20px;
-
-    a{
-        color: #7494ec;
-        text-decoration: none;
+@media screen and (max-width: 600px) {
+    .search-form-box {
+      width: 100%;
     }
-
-    a:hover{
-        text-decoration: underline;
-    }
-}
-
-.error-message{
-    padding: 12px;
-    background: #f8d7da;
-    border-radius: 6px;
-    font-size: 16px;
-    color: #a42834;
-    text-align: center;
-    margin-bottom: 20px;
-}
+  }
 

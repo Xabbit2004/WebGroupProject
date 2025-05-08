@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="user_style.css">
+</head>
+<body>
+    <h1>Welcome, <span><?= $_SESSION['name']; ?></span>
+    <p>This the <span>user</span> page </p>
+    <button onclick="window.location.href='logout.php'">Logout</button>
+
+    <!-- Have a search bar -->
+    <div class="container" >
+        <div class="search-form-box" >
+            <form method="post">
+                <!-- Regular Serch -->
+                <input type="text" name="searchText"> 
+                <select name="search_type" required>
+                    <option value="byTitle"> By Title </option>
+                    <option value="byAuthor"> By Author </option>
+                    <option value="byISBN"> By ISBN </option>
+                </select>
+                <button type="submit" name="searchButton"> Search </button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="wrapper">
+    <table>
+        <thead>
+            <tr class="header">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Rating</th>
+                <th>Quantity</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr> 
+                <td>
+                    hell
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>
+
+</body>
+</html>
