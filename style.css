@@ -1,151 +1,97 @@
-/* Reviewpage.css */
-
-/* Review form styles */
-.review-container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.review-heading {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 8px;
-  display: block;
-  color: #444;
-}
-
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  resize: vertical;
-}
-
-.star-row {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.submit-btn {
-  background-color: #4caf50;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #45a049;
-}
-
-.thank-you-message {
-  text-align: center;
-  color: #333;
-}
-
-.thank-you-message h3 {
-  color: #4caf50;
-}
-
-/* Home.css */
-
-/* General body and layout styles */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom, #003B5C, #ffffff);
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column; /* Makes the content stack vertically */
-  min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    color: #333;
 }
 
-.container {
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  flex-grow: 1;
-  justify-content: flex-start;
+.container{
+    margin: 0 15px;
 }
 
-/* Background Image */
-.background-image {
-  background-image: url('Books.jpg'); /* Replace with your image */
-  background-size: cover;
-  background-position: center;
-  height: 50vh;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+.form-box{
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
 }
 
-/* Main Content */
-.content {
-  padding: 20px;
-  flex-grow: 1;
+.form-box.active{
+    display: block;
 }
 
-/* Header */
-.homeHeader {
-  text-align: center;
-  padding: 30px 0;
-  height: 10%;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+
+
+h2{
+    font-size: 34px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-h1 {
-  text-align: center;
-  margin: 0;
+input, select {
+    width: 100%;
+    padding: 12px;
+    background: #eee;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-/* Intro Blurb */
-.intro-blurb {
-  color: white;
-  text-shadow: 10px 10px 20px black;
-  text-align: center;
-  width: 50%; /* Reduced width for better readability */
-  height: 225px;
-  margin: auto;
+button {
+    width: 100%;
+    padding: 12px;
+    background: #7494ec;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: 0.5s;
 }
 
-/* Form Styling */
-.filters {
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  flex-grow: 1;
-  justify-content: flex-start;
-  width: 15%;
-  margin: auto;
+button:hover{
+    background: #6884d3;
 }
 
-/* Table Styling */
-table, th, td {
-  border: 1px solid black;
-  margin-left: auto;
-  margin-right: auto;
+p{
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    a{
+        color: #7494ec;
+        text-decoration: none;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
 }
+
+.error-message{
+    padding: 12px;
+    background: #f8d7da;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #a42834;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
